@@ -34,13 +34,13 @@ one of the user running the script.
 The keys are intended to be "temporary", meaning that you should often generate a new pair
 using the script and give the private key it to whoever you want to be able to access your shared
 sessions. Some comments about security:
-  1) You can use a passphrase or not to encrypt the private key. It does not matter that much,
+  1. You can use a passphrase or not to encrypt the private key. It does not matter that much,
      because at the end of the day you can generate new keys very often, making the system
      behave as a "one-time-key-like" system.
-  2) To "revoke access" of old keys, you just go to your authorized_keys file and delete the
+  2. To "revoke access" of old keys, you just go to your authorized_keys file and delete the
      lines refering to the keys you think are too old (Each key is identified by the date in
      which it was created).
-  3) The access line that's added to the guest user's authorized_keys file allows ONLY to join
+  3. The access line that's added to the guest user's authorized_keys file allows ONLY to join
      a currently-running Screen multiuser session. It allows no port forwarding, no X11
      forwarding, no other commands, basically NOTHING ELSE.
 
