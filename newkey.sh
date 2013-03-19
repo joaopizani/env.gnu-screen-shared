@@ -8,7 +8,7 @@ DIR="$(cd -P "$(dirname $CANONICAL_SRC)" && pwd)"
 GC_RUNNER=`whoami`  # User running this script, and which will create the shared sessions
 GC_USER=${1:-$GC_RUNNER}  # "guest" user of the sessions. Can be the creator or another one
 GC_HOME=$(eval "echo ~${GC_USER}")
-GC_SUFFIX="sshare"
+GC_SUFFIX="shared"
 GC_TODAY=`date --rfc-3339='date'`
 
 GC_KEYNAME="${GC_USER}_${GC_SUFFIX}_${GC_TODAY}"
@@ -33,6 +33,7 @@ SSH_DIR="${GC_HOME}/.ssh"
 SSH_AUTHKEYSFILE="${SSH_DIR}/authorized_keys"
 echo "Writing new sharedscreen key to authorized_keys file of user ${GC_USER}"
 echo "The commands needs to be run with the privileges of user ${GC_USER}"
+
 sudo -u ${GC_USER} mkdir -p ${SSH_DIR}
 echo -e "\nkey:"
 echo -n ${SSH_AUTHLINE} | sudo -u ${GC_USER} tee ${SSH_AUTHKEYSFILE}

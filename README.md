@@ -2,8 +2,7 @@ gnu-screen-shared
 =================
 
 GNU Screen has A LOT of interesting applications, and I like it a lot - so much that I have
-spent some time tinkering it, the result of which is
-[also on GitHub](http://github.com/joaopizani/screenrc-ftw).
+spent some time [tinkering it](http://github.com/joaopizani/screenrc-ftw).
 
 One of the MOST interesting features that GNU Screen provides is **screen session sharing**.
 That means that you can start a screen session on your computer and OTHER USERS can connect
@@ -13,14 +12,14 @@ _only watch_ what you are doing, with complete security. Or you can also give th
 the right to _write_ on your windows, but you can always kick him or return him to the
 _watch-only_ group...
 
-However, setting up this "environment" in a productive and secure is kind of hard, and you have
-to know about SSH keys, remote command execution restriction, etc. So I created this project
-that consists of a little script to help you setup a SSH key with the only purpose of letting
-someone work together with you in a shared Screen session.
+However, setting up this "environment" in a **productive and secure** way is hard, and you have
+to know about SSH keys, remote command execution restriction, etc. So I created this repository
+that consists of a handy script to help you setup a SSH key which sole purpose is letting someone
+work together with you in a shared Screen session.
 
-You should run the script "newkey.sh" as the user who will _create_ the shared Screen session.
-That is, if you usually use you computer (and run Screen) as the user "batman", than "batman"
-is the user which must run the "newkey.sh"
+You should run the script `newkey.sh` as the user who will _create_ the shared Screen session.
+That is, if you usually use you computer (and run Screen) as the user "batman", then "batman"
+is the user which must run the `newkey.sh`
 
 You should run the script like this:
 
@@ -31,18 +30,20 @@ account. It's best to have a separate "guest" account only for these kinds of re
 accesses. But if you don't pass a parameter, the guest account is assumed to be the same as the
 one of the user running the script.
 
-The keys are intended to be "temporary", meaning that you should often generate a new pair
+The keys are intended to be "temporary", meaning that you should **very often** generate a new pair
 using the script and give the private key it to whoever you want to be able to access your shared
 sessions. Some comments about security:
-  1. You can use a passphrase or not to encrypt the private key. It does not matter that much,
-     because at the end of the day you can generate new keys very often, making the system
-     behave as a "one-time-key-like" system.
+  1. You can use a passphrase or not to encrypt the private key. It does not matter _that much_,
+     because at the end of the day you are supposed to generate new keys very often, making the
+     system behave as a "one-time-key-like" system. If you decide to use a passphrase, choose,
+     for example, something that you and your remote guest both ALREADY know, but is hard to guess.
   2. To "revoke access" of old keys, you just go to your authorized_keys file and delete the
      lines refering to the keys you think are too old (Each key is identified by the date in
      which it was created).
   3. The access line that's added to the guest user's authorized_keys file allows ONLY to join
-     a currently-running Screen multiuser session. It allows no port forwarding, no X11
-     forwarding, no other commands, basically NOTHING ELSE.
+     a currently-running Screen multiuser session. It allows no shell access, no port forwarding,
+     no X11 forwarding, no other commands, basically NOTHING ELSE.
+
 
 Quick tutorial on practical usage
 ---------------------------------
@@ -53,18 +54,19 @@ the specific purpose of entering these shared sessions.
 
 First you need to create the "guestcoder" user, which can be done like this:
 
-    batman@batcave:~$ sudo useradd -m guestcoder
-    batman@batcave:~$ sudo passwd -d guestcoder  # guestcoder will have an empty password
+    batman@batcave:~$ sudo useradd -m guestcoder -s /bin/false
 
-Then, you can run the script to allow guestcoder to access batman's shared Screen sessions:
+Notice how the shell is set to `/bin/false` so that the ONLY way for the user to get access is by
+using the provided restricted SSH key. The next step is to run the script to allow guestcoder to
+access batman's shared Screen sessions:
 
     batman@batcave:~$ ./newkey.sh guestcoder
 
 If everything goes well you can just send the private key to your friend (the most recently
-created private key lies in this repo root with the name sshare-current-key), and then
-you start your local Screen session, with the name "sshare"
+created private key lies in this repo root with the name `sshare-current-key`), and then
+you start your local Screen session, with the name "shared"
 
-    screen -S sshare
+    screen -S shared
 
 Also, make sure that the multiuser mode in Screen is activated and that the guestcoder
 has access to it:
