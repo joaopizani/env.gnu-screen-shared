@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # The trick to find out the full REAL path to the dir where THIS script lives
-REL_SRC=${BASH_SOURCE[0]}
+REL_SRC="${BASH_SOURCE[0]}"
 CANONICAL_SRC=$(readlink -f "$REL_SRC")
 DIR=$(cd -P "$(dirname "$CANONICAL_SRC")" && pwd)
 
