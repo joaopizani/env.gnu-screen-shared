@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# The trick to find out the full REAL path to the dir where THIS script lives
-REL_SRC="${BASH_SOURCE[0]}"
-CANONICAL_SRC=$(readlink -f "$REL_SRC")
-DIR=$(cd -P "$(dirname "$CANONICAL_SRC")" && pwd)
+DIR="$(cd -P "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
 GC_RUNNER=$(whoami)  # User running this script, and which will create the shared sessions
 GC_USER=${1:-$GC_RUNNER}  # "guest" user of the sessions. Can be the creator or another one
