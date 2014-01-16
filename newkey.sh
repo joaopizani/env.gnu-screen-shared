@@ -39,7 +39,7 @@ echo -e "\n\nKey ${GC_KEYNAME} wrote to: ${SSH_AUTHKEYSFILE}.  Previous key(s) r
 
 
 PUBIP=$(wget http://ipecho.net/plain -O - -q ; echo)
-CONNECTION_COMMAND="ssh -t -i <PATH_TO_KEYFILE> <EXTRA_OPTIONS> ${GC_USER}@${PUBIP}  ${SCREEN_ATTACH_COMMAND}"
+CONNECTION_COMMAND="ssh -t -i <PATH_TO_KEYFILE> <EXTRA_OPTIONS> ${GC_USER}@${PUBIP}  \"${SCREEN_ATTACH_COMMAND}\""
 
 echo "This is your public IP address:  ${PUBIP}"
 echo "Tell your Linux/Mac clients to connect using the following command:"
