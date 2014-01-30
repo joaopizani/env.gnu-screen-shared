@@ -17,7 +17,7 @@ echo "Creating new key pair for secure shared screen access"
 mkdir -p "${GC_KEYSDIR}"
 ssh-keygen -C "${GC_KEYNAME}" -f "${GC_KEYPATH}"
 SSH_PUBKEY=$(cat "${GC_KEYPATH}.pub")
-cp "${GC_KEYPATH}" "${GC_SUFFIX}-current-key"  # makes a copy in the repo root for easy access
+cp "${GC_KEYPATH}" "${DIR}/${GC_SUFFIX}-current-key"  # makes a copy in the repo root for easy access
 
 # The access directive that will be added to the guest authorized_keys. JUST ENOUGH
 # for accessing the shared session, no more permissions
